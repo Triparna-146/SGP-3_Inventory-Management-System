@@ -13,6 +13,7 @@ const VehicleVoucher = () => {
   const [headName, setHeadName] = useState('')
   const [inkms, setInkms] = useState('')
   const [outkms, setOutkms] = useState('')
+  const [state, setState] = useState(true)
 
   const options = [
     { label: 'Option 1', value: '1' },
@@ -59,13 +60,16 @@ const VehicleVoucher = () => {
   return (
     <div className='mx-44'>
       <h1 className="text-4xl mb-12 text-neutral-900">Vehicle Voucher</h1>
-      
+      <div className='flex flex-row items-center gap-5 mb-5'>
+        <button className={`w-20 py-2 ${ state ? 'bg-yellow-400 ' : 'bg-primary text-white'} rounded-full font-medium shadow-lg`} onClick={() => state && setState(false)}>In</button>
+        <button className={`w-20 py-2 ${ state ? 'bg-primary text-white' : 'bg-yellow-400'} rounded-full font-medium shadow-lg`} onClick={() => !state && setState(true)}>Out</button>
+      </div>
       <form action="">
         <div className='grid grid-cols-[1fr_3fr] gap-10'>
           <InputBox title={"Employee Name"} setValue={setEmployeeName} placeholder={"Enter Name"} />
           <SelectBox title={"Vehicle Number"} setValue={setVehicleNo} options={vehicleOptions} />
           <SelectBox title={"Department Name"} setValue={setDepartmentName} options={departmentOptions} placeholder={"Enter Name"}/>
-          <InputBox title={"Out Kms"} setValue={setOutkms} placeholder={"Enter Kms"}/>
+          <InputBox title={`${state ? "Out Kms" : "In Kms"}`} setValue={`${state ? setOutkms : setInkms}`} placeholder={"Enter Kms"}/>
           {/* <InputBox title={"Reason"} setValue={setReason} placeholder={"Enter reason"}/> */}
           <SelectBox title={"Reason"} setValue={setReason} options={reasonOptions} />
           <SelectBox title={"Head name for Approval"} setValue={setHeadName} options={headNameOptions} />
